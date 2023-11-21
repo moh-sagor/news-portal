@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('slug')->unique()->index()->nullable();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
+            $table->text('short_content');
             $table->text('content');
             $table->string('photo');
             $table->timestamps();

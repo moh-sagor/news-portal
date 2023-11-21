@@ -1,3 +1,5 @@
+
+
 @extends('common_page.main')
 {{-- Meta details --}}
 @include('common_page.dynamicMeta')
@@ -435,6 +437,40 @@
                 </div>
             </div>
         </div>
+        {{-- <p>{{ !! $news->content !! }}</p> --}}
     </section>
     <!--================ Blog Area end =================-->
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Meta Title</th>
+                <th>Meta Description</th>
+                <th>Content</th>
+                <th>Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ $news->title }}</td>
+                <td>{{ $news->slug }}</td>
+                <td>{{ $news->meta_title }}</td>
+                <td><p>{{ $news->meta_description }}</p></td>
+                <td><p>{!! $news->content !!}</p>
+                </td>
+                <td>
+                    @if ($news->photo)
+                        <img src="{{ asset('Posted_News/News/' . $news->photo) }}" alt="news Photo" width="100">
+                    @else
+                        No Photo
+                    @endif
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
 @endsection
+

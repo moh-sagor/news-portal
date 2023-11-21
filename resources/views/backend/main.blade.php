@@ -10,6 +10,7 @@
     <title>Dashboard - SB Admin</title>
     {{-- link  --}}
     @include('backend.link')
+    @include('backend.tinymce')
 
 </head>
 
