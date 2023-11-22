@@ -18,14 +18,14 @@ class NewsController extends Controller
     public function dashboard()
     {
         $news = News::all();
-        return view('news_page.dashboard', compact('news'));
+        $newsCount = News::count();
+        return view('news_page.dashboard', compact('news', 'newsCount'));
     }
 
     public function show($slug)
     {
         // Find the news post by its id
         $news = News::where('slug', $slug)->first();
-
         // Check if the news post exists
         if (!$news) {
             // Handle the case where the news post is not found, for example, redirect to a 404 page
@@ -75,5 +75,55 @@ class NewsController extends Controller
         session()->flash("success", "Successfully Added");
         return redirect()->route('news_page.dashboard');
     }
+    public function edit($id)
+    {
+        $news = News::findOrFail($id);
+        return view('news_page.edit', compact('news'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $rules = [
+            "title" => ["required"],
+            "short_content" => ["required"],
+            "content" => ["required"],
+        ];
+
+        $this->validate($request, $rules);
+
+        $input = $request->all();
+        $news = News::findOrFail($id);
+
+        // Check if the title has been changed
+        if ($request->title !== $news->title) {
+            $slug = Str::slug($request->title);
+            $counter = 1;
+
+            while (News::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+                $slug = Str::slug($request->title) . '_' . $counter;
+                $counter++;
+            }
+
+            $input['slug'] = $slug;
+        }
+
+        $input['meta_title'] = Str::limit($request->title, 55);
+        $input['meta_description'] = Str::limit($request->short_content, 150);
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $filename = $news->slug . '.' . $image->getClientOriginalExtension();
+            $location = public_path('/Posted_News/News/' . $filename);
+            Image::make($image)->resize(750, 375)->save($location);
+            $input['photo'] = $filename;
+        }
+
+        $news->update($input);
+
+        session()->flash("success", "Successfully Updated");
+        return redirect()->route('news_page.dashboard');
+    }
+
+
 }
 

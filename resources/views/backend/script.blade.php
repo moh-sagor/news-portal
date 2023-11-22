@@ -7,3 +7,4 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="{{ asset('backend/assets/js/datatables-simple-demo.js') }}"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<script src="{{asset('js/sweetalert2.js')}}"></script>
