@@ -14,9 +14,6 @@
                 <div class="form-border mt-2">
                     <form action="{{ route('news_page.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-
-                        {{-- @include('partials.error') --}}
-
                         <div class="row">
                             <div class="col-md-8">
                                 <fieldset class="form-group border p-3">

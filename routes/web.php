@@ -19,6 +19,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/update/{id}', [NewsController::class, 'update'])->name('news_page.update');
     Route::post('/store', [NewsController::class, 'store'])->name('news_page.store');
     Route::get('/dashboard', [NewsController::class, 'dashboard'])->name('news_page.dashboard');
+    Route::delete('/destroy/{id}', [NewsController::class, 'destroy'])->name('news_page.destroy');
+
 
 
 

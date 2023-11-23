@@ -2,6 +2,7 @@
 @extends('backend.main')
 @include('backend.sweetalert')
 @section('content')
+
     <div class="container-fluid px-4">
         <h1 class="mt-4">Dashboard</h1>
         <div class="row">
@@ -79,14 +80,26 @@
                                             No Photo Found
                                         @endif
                                     </td>
-                                    <td>  <a href="#" onclick="confirmEdit('{{ $item->id }}')">
-                                        <i class="fas fa-edit" style="color: green;"></i>
-                                    </a>
-                                    
-                                     <a href="#" onclick="confirmDelete()" data-id="{{ $item->id }}">
-                                        <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
-                                     </a>
-                                     
+                                    <td>  
+                                        <div class="row">
+                                            <div class="col">
+                                                <a href="#" onclick="confirmEdit('{{ $item->id }}')">
+                                                    <i class="fas fa-edit" style="color: green;"></i>
+                                                </a>
+                                            </div>
+                                            
+                                            <div class="col">
+                                                <form method="POST" id="delete-form-{{ $item->id }}" action="{{ route('news_page.destroy', ['id' => $item->id]) }}">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="#" onclick="confirmDelete(event, '{{ $item->id }}')">
+                                                        <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
+                                                    </a>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                        
                                     </td>
                                 </tr>
                                 @php
@@ -100,21 +113,22 @@
         </div>
     </div>
 
-    <script>
-        const counters = document.querySelectorAll(".counter");
-        counters.forEach((counter) => {
-        counter.innerText = "0";
-        const updateCounter = () => {
-        const target = +counter.getAttribute("data-target");
-        const count = +counter.innerText;
-        const increment = target / 500;
-        if (count < target) {
-            counter.innerText = `${Math.ceil(count + increment)}`;
-            setTimeout(updateCounter, 1);
-            } else counter.innerText = target;
-     };
-         updateCounter();
+    {{-- total news count  --}}
+<script>
+    const counters = document.querySelectorAll(".counter");
+    counters.forEach((counter) => {
+    counter.innerText = "0";
+    const updateCounter = () => {
+    const target = +counter.getAttribute("data-target");
+    const count = +counter.innerText;
+    const increment = target / 500;
+    if (count < target) {
+        counter.innerText = `${Math.ceil(count + increment)}`;
+        setTimeout(updateCounter, 1);
+        } else counter.innerText = target;
+ };
+     updateCounter();
 });
-    </script>
+</script>
 
 @endsection

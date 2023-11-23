@@ -2,13 +2,21 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <a class="nav-link" href="{{ route('news_page.dashboard') }}">
+                <a class="nav-link" href="{{ route('homePage') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                     Home
+                </a>
+                <a class="nav-link" href="{{ route('news_page.dashboard') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                    Dashboard Home
                 </a>
                 <a class="nav-link" href="{{ route('news_page.create') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
                     Create Post
+                </a>
+                <a class="nav-link" href="">
+                    <div class="sb-nav-link-icon"><i class="fa-regular fa-square-plus"></i></div>
+                    Create Category
                 </a>
             </div>
         </div>

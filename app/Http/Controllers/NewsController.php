@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\News;
 use Intervention\Image\Facades\Image;
+use Session;
 
 class NewsController extends Controller
 {
@@ -72,7 +73,7 @@ class NewsController extends Controller
             $input['photo'] = $filename;
         }
         News::create($input);
-        session()->flash("success", "Successfully Added");
+        Session::flash('success', 'Congratulations on creating a great Post!');
         return redirect()->route('news_page.dashboard');
     }
     public function edit($id)
@@ -120,9 +121,31 @@ class NewsController extends Controller
 
         $news->update($input);
 
-        session()->flash("success", "Successfully Updated");
+        Session::flash('success_update', 'Successfully Updated!');
         return redirect()->route('news_page.dashboard');
     }
+
+    public function destroy($id)
+    {
+        $news = News::find($id);
+
+        if (!$news) {
+            return redirect()->route('news_page.dashboard')->with('error', 'News not found');
+        }
+        // Delete the photo file
+        if ($news->photo) {
+            $photoPath = public_path('/Posted_News/News/' . $news->photo);
+            if (file_exists($photoPath)) {
+                unlink($photoPath);
+            }
+        }
+        // Delete the news post
+        $news->delete();
+
+        return redirect()->route('news_page.dashboard')->with('success', 'News deleted successfully');
+    }
+
+
 
 
 }
