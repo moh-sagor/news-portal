@@ -31,6 +31,20 @@
                                 </fieldset>
                             </div>
                         </div>
+                        
+                                <fieldset class="form-group border p-3">
+                                    <legend class="float-none w-auto"><b>Select Category</b></legend>
+                                    @foreach($categories as $category)
+                                        <div class="form-check">
+                                            <input type="checkbox" id="category_{{ $category->id }}" name="category_id[]"
+                                        value="{{ $category->id }}">
+                                        <label class="form-check-label mr-2"
+                                        for="category_{{ $category->id }}"><b>{{ $category->name }}</b></label>
+                                        </div>
+                                    @endforeach
+                                </fieldset>
+                        
+                        
 
                         <fieldset class="form-group border p-3">
                             <legend class="float-none w-auto"><b>Short Description</b></legend>

@@ -17,5 +17,13 @@ class News extends Model
         'short_content',
         'content',
         'photo',
+        'user_id',
     ];
+
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_news');
+    }
+
 }

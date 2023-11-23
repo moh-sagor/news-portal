@@ -450,6 +450,7 @@
                 <th>Meta Title</th>
                 <th>Meta Description</th>
                 <th>Content</th>
+                <th>Category</th>
                 <th>Photo</th>
             </tr>
         </thead>
@@ -461,6 +462,9 @@
                 <td><p>{{ $news->meta_description }}</p></td>
                 <td><p>{!! $news->content !!}</p>
                 </td>
+                <td>@foreach ($news->categories as $category)
+                    <li>{{ $category->name }}</li>
+                @endforeach</td>
                 <td>
                     @if ($news->photo)
                         <img src="{{ asset('Posted_News/News/' . $news->photo) }}" alt="news Photo" width="100">

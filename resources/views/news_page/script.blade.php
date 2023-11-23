@@ -32,7 +32,8 @@
 {{-- create page live text  --}}
 <script>
     function updateMetaTitle(title) {
-        document.getElementById('metaTitlePreview').innerText = title;
+        const truncatedContent = title.substring(0, 55);
+        document.getElementById('metaTitlePreview').innerText = truncatedContent;
     }
 
     function updateMetaDescription(short_content) {

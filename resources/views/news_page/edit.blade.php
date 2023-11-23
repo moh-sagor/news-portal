@@ -32,6 +32,23 @@
                             </div>
                         </div>
 
+
+
+                        <fieldset class="form-group border p-3">
+                            <legend class="float-none w-auto"><b>Select Category</b></legend>
+                            @foreach($categories as $category)
+                                <div class="form-check">
+                                    <input type="checkbox" id="category_{{ $category->id }}" name="category_id[]"
+                                           value="{{ $category->id }}"
+                                           {{ in_array($category->id, $news->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                    <label class="form-check-label mr-2"
+                                           for="category_{{ $category->id }}"><b>{{ $category->name }}</b></label>
+                                </div>
+                            @endforeach
+                        </fieldset>
+                        
+
+
                         <fieldset class="form-group border p-3">
                             <legend class="float-none w-auto"><b>Short Description</b></legend>
                             <textarea name="short_content" id="short_content" class="form-control" placeholder="Enter Short Description"

@@ -10,20 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique()->index()->nullable();
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->text('short_content');
-            $table->text('content');
-            $table->string('photo');
-            $table->timestamps();
-
-
+            $table->string('name');
             $table->unsignedBigInteger('user_id')->nullable(); // Use unsignedBigInteger
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('categories');
     }
 };

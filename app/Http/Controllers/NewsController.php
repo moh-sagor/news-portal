@@ -8,12 +8,15 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use Intervention\Image\Facades\Image;
 use Session;
+use App\Models\Category;
+use App\Models\CategoryNews;
+
 
 class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::all();
+        $news = News::with('category')->get();
         return view('news_page.index', compact('news'));
     }
     public function dashboard()
@@ -26,7 +29,7 @@ class NewsController extends Controller
     public function show($slug)
     {
         // Find the news post by its id
-        $news = News::where('slug', $slug)->first();
+        $news = News::with('categories')->where('slug', $slug)->first();
         // Check if the news post exists
         if (!$news) {
             // Handle the case where the news post is not found, for example, redirect to a 404 page
@@ -39,7 +42,9 @@ class NewsController extends Controller
 
     public function create()
     {
-        return view('news_page.create');
+        $categories = Category::all();
+        $news = new News();
+        return view('news_page.create', compact('categories', 'news'));
     }
 
     public function store(Request $request)
@@ -48,8 +53,10 @@ class NewsController extends Controller
             "title" => ["required"],
             "short_content" => ["required"],
             "content" => ["required"],
+
         ];
         $this->validate($request, $rules);
+
         $input = $request->all();
 
         $slug = Str::slug($request->title);
@@ -72,14 +79,21 @@ class NewsController extends Controller
             Image::make($image)->resize(750, 375)->save($location);
             $input['photo'] = $filename;
         }
-        News::create($input);
+
+        $news = News::create($input);
+        if ($request->category_id) {
+            $news->categories()->sync($request->category_id);
+        }
+
+
         Session::flash('success', 'Congratulations on creating a great Post!');
         return redirect()->route('news_page.dashboard');
     }
     public function edit($id)
     {
+        $categories = Category::all();
         $news = News::findOrFail($id);
-        return view('news_page.edit', compact('news'));
+        return view('news_page.edit', compact('news', 'categories'));
     }
 
     public function update(Request $request, $id)
@@ -119,7 +133,13 @@ class NewsController extends Controller
             $input['photo'] = $filename;
         }
 
+
         $news->update($input);
+
+        if ($request->category_id) {
+            $news->categories()->sync($request->category_id);
+        }
+
 
         Session::flash('success_update', 'Successfully Updated!');
         return redirect()->route('news_page.dashboard');
@@ -139,6 +159,9 @@ class NewsController extends Controller
                 unlink($photoPath);
             }
         }
+
+        // Detach categories before deleting the news post
+        $news->categories()->detach();
         // Delete the news post
         $news->delete();
 

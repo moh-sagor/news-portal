@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\CategoryController;
 
 
 Route::get('/', function () {
@@ -11,6 +12,8 @@ Route::get('/', function () {
 // News section 
 Route::get('/news', [NewsController::class, 'index'])->name('news_page.index');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news_page.show');
+// category section 
+Route::get('/category', [CategoryController::class, 'index'])->name('news_category.index');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // news 
@@ -23,6 +26,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
 
+    // category 
+    Route::get('/createCategory', [CategoryController::class, 'create'])->name('news_category.create');
+    Route::post('/storeCategory', [CategoryController::class, 'store'])->name('news_category.store');
 
     // tinymce 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

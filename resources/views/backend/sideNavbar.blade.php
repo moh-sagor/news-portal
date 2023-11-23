@@ -14,7 +14,7 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
                     Create Post
                 </a>
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{{ route('news_category.create') }}">
                     <div class="sb-nav-link-icon"><i class="fa-regular fa-square-plus"></i></div>
                     Create Category
                 </a>
