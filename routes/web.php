@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
 
 
 Route::get('/', function () {
@@ -24,14 +25,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [NewsController::class, 'dashboard'])->name('news_page.dashboard');
     Route::post('/destroy/{id}', [NewsController::class, 'destroy'])->name('news_page.destroy');
 
-
-
     // category 
     Route::get('/createCategory', [CategoryController::class, 'create'])->name('news_category.create');
     Route::post('/storeCategory', [CategoryController::class, 'store'])->name('news_category.store');
     Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('news_category.edit');
     Route::post('/categories/update/{category}', [CategoryController::class, 'update'])->name('news_category.update');
     Route::post('/category/destroy/{id}', [CategoryController::class, 'destroy'])->name('news_category.destroy');
+
+    // user manager 
+    Route::get('/manage-users', [UserController::class, 'index'])->name('manage.users');
+    Route::post('/manage-users/update-role/{user}', [UserController::class, 'updateRole'])->name('manage.users.updateRole');
 
 
 

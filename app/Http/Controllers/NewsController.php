@@ -14,6 +14,12 @@ use App\Models\CategoryNews;
 
 class NewsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('role:admin')->only('create', 'store', 'edit', 'update', 'destroy');
+    }
+
     public function index()
     {
         $news = News::with('category')->get();

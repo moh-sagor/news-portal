@@ -10,19 +10,30 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                     Dashboard Home
                 </a>
+                @if(auth()->user()->isAdmin())
                 <a class="nav-link" href="{{ route('news_page.create') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-plus-circle"></i></div>
                     Create Post
                 </a>
+                @endif
+                @if(auth()->user()->isAdmin())
                 <a class="nav-link" href="{{ route('news_category.create') }}">
                     <div class="sb-nav-link-icon"><i class="fa-regular fa-square-plus"></i></div>
                     Create Category
                 </a>
+                @endif
+                @if(auth()->user()->isAdmin())
+                <a class="nav-link" href="{{route('manage.users')}}">
+                    <div class="sb-nav-link-icon"><i class="fa-regular fa-square-plus"></i></div>
+                    Manage User
+                </a>
+                @endif
             </div>
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            Admin
+            {{ auth()->user()->name }}
         </div>
+        
     </nav>
 </div>

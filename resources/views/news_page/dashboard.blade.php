@@ -30,12 +30,14 @@
                                             @csrf
                                         <b>{{ $serialCounter }}. {{ $category->name }}</b>
                                             
+                                        @if(auth()->user()->isAdmin())
                                         <a style="text-decoration: none;" class="edit-category" data-id="{{ $category->id }}">
                                             <i class="fas fa-edit" style="color: green;"></i>
                                         </a>
-                                            <a style="text-decoration: none;" onclick="confirmDeleteCategory(event, '{{ $category->id }}')">
-                                                <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
-                                            </a>
+                                        <a style="text-decoration: none;" onclick="confirmDeleteCategory(event, '{{ $category->id }}')">
+                                            <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
+                                        </a>
+                                    @endif
                                         </form>
                                     </label>
                                     @php
@@ -121,6 +123,7 @@
                                     <td>   
                                         <form method="POST" id="delete-form-{{ $item->id }}" action="{{ route('news_page.destroy', ['id' => $item->id]) }}">
                                         @csrf
+                                        @if(auth()->user()->isAdmin())
                                                 <a style="text-decoration: none;" onclick="confirmEdit('{{ $item->id }}')">
                                                     <i class="fas fa-edit" style="color: green;"></i>
                                                 </a>
@@ -128,6 +131,9 @@
                                                     <a style="text-decoration: none;" onclick="confirmDelete(event, '{{ $item->id }}')">
                                                         <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
                                                     </a>
+                                        @else
+                                        <p>Only for SuperUser.</p>
+                                        @endif
                                                 </form>
                                         
                                     </td>
