@@ -10,7 +10,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('news_category.index', compact('categories'));
+        return view('dashboard.index', compact('categories'));
     }
 
     public function create()
@@ -28,30 +28,36 @@ class CategoryController extends Controller
             'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('news_category.index')->with('success', 'Category created successfully');
+        return redirect()->route('news_page.dashboard')->with('success', 'Category created successfully');
     }
 
-    // public function edit(Category $category)
-    // {
-    //     return view('categories.edit', compact('category'));
-    // }
 
-    // public function update(Request $request, Category $category)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|unique:categories,name,' . $category->id,
-    //     ]);
+    public function edit(Category $category)
+    {
+        return view('news_category.edit', compact('category'));
+    }
 
-    //     $category->update([
-    //         'name' => $request->input('name'),
-    //     ]);
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required|unique:categories,name,' . $category->id,
+        ]);
 
-    //     return redirect()->route('categories.index')->with('success', 'Category updated successfully');
-    // }
+        $category->update([
+            'name' => $request->input('name'),
+        ]);
 
-    // public function destroy(Category $category)
-    // {
-    //     $category->delete();
-    //     return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
-    // }
+        return redirect()->route('news_page.dashboard')->with('success', 'Category updated successfully');
+    }
+
+    public function destroy($id)
+    {
+
+        $categories = Category::find($id);
+        $categories->delete();
+        return redirect()->route('news_page.dashboard')->with('success', 'Category deleted successfully');
+    }
+
+
+
 }

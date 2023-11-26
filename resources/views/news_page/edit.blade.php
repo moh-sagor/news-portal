@@ -33,10 +33,12 @@
                         </div>
 
 
-
                         <fieldset class="form-group border p-3">
                             <legend class="float-none w-auto"><b>Select Category</b></legend>
-                            @foreach($categories as $category)
+                            @foreach ($categories->chunk(6) as $subCategoryChunk)
+                            <div class="row">
+                            @foreach($subCategoryChunk as $category)
+                            <div class="col-md-4">
                                 <div class="form-check">
                                     <input type="checkbox" id="category_{{ $category->id }}" name="category_id[]"
                                            value="{{ $category->id }}"
@@ -44,6 +46,9 @@
                                     <label class="form-check-label mr-2"
                                            for="category_{{ $category->id }}"><b>{{ $category->name }}</b></label>
                                 </div>
+                            </div>
+                            @endforeach
+                            </div>
                             @endforeach
                         </fieldset>
                         

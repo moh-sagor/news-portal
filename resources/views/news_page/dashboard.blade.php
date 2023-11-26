@@ -6,8 +6,7 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Dashboard</h1>
         <div class="row">
-
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-3 col-md-3 pt-3">
                 <div class="card text-black mb-4 ">
                         <div class="card-body bg-primary d-flex align-items-center justify-content-center">Total News</div>
                         <div class="card-footer bg-info d-flex align-items-center justify-content-center">
@@ -15,6 +14,40 @@
                         </div>
                 </div>
             </div>
+
+            <div class="col-xl-9 col-md-9">
+                <fieldset class="border ps-4 pb-2">
+                    <legend class="float-none w-auto"><b>Categories</b></legend>
+                    @php
+                        $serialCounter = 1;
+                    @endphp
+                    @foreach ($categories->chunk(6) as $categoryChunk)
+                        <div class="row">
+                            @foreach ($categoryChunk as $category)
+                                <div class="col-md-4">
+                                    <label class="form-check-label" for="category_{{ $category->id }}">
+                                        <form method="POST" id="delete-item-{{ $category->id }}" action="{{ route('news_category.destroy', $category->id) }}" onsubmit="console.log('Form Submitted');">
+                                            @csrf
+                                        <b>{{ $serialCounter }}. {{ $category->name }}</b>
+                                            
+                                        <a style="text-decoration: none;" class="edit-category" data-id="{{ $category->id }}">
+                                            <i class="fas fa-edit" style="color: green;"></i>
+                                        </a>
+                                            <a style="text-decoration: none;" onclick="confirmDeleteCategory(event, '{{ $category->id }}')">
+                                                <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
+                                            </a>
+                                        </form>
+                                    </label>
+                                    @php
+                                        $serialCounter++;
+                                    @endphp
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </fieldset>
+            </div>
+           
             
         </div>
 
@@ -36,6 +69,7 @@
                                 <th>Meta Description</th>
                                 <th>Short Content</th>
                                 <th>Content</th>
+                                <th>Category</th>
                                 <th>Photo</th>
                                 <th>Action</th>
                             </tr>
@@ -48,6 +82,7 @@
                                 <th>Meta Description</th>
                                 <th>Short Content</th>
                                 <th>Content</th>
+                                <th>Category</th>
                                 <th>Photo</th>
                                 <th>Action</th>
                             </tr>
@@ -63,7 +98,7 @@
                                     <td>
                                         <a style="text-decoration: none;"
                                             href="{{ route('news_page.show', ['slug' => $item->slug]) }}">
-                                            {{ $item->title }}
+                                            {{Str::limit($item->title,20) }}
                                         </a>
                                     </td>
                                     <td>{{ Str::limit($item->slug, 10) }}</td>
@@ -71,6 +106,9 @@
                                     <td>{{ Str::limit($item->meta_description, 20) }}</td>
                                     <td>{{ Str::limit($item->short_content, 20) }}</td>
                                     <td><p>{!! Str::limit($item->content, 30) !!}</p></td>
+                                    <td>@foreach ($item->categories as $category)
+                                        {{ $category->name }},
+                                    @endforeach</td>
 
                                     <td>
                                         @if ($item->photo)
@@ -80,25 +118,17 @@
                                             No Photo Found
                                         @endif
                                     </td>
-                                    <td>  
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="#" onclick="confirmEdit('{{ $item->id }}')">
+                                    <td>   
+                                        <form method="POST" id="delete-form-{{ $item->id }}" action="{{ route('news_page.destroy', ['id' => $item->id]) }}">
+                                        @csrf
+                                                <a style="text-decoration: none;" onclick="confirmEdit('{{ $item->id }}')">
                                                     <i class="fas fa-edit" style="color: green;"></i>
                                                 </a>
-                                            </div>
-                                            
-                                            <div class="col">
-                                                <form method="POST" id="delete-form-{{ $item->id }}" action="{{ route('news_page.destroy', ['id' => $item->id]) }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a href="#" onclick="confirmDelete(event, '{{ $item->id }}')">
+                                               
+                                                    <a style="text-decoration: none;" onclick="confirmDelete(event, '{{ $item->id }}')">
                                                         <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
                                                     </a>
                                                 </form>
-                                            </div>
-                                            
-                                        </div>
                                         
                                     </td>
                                 </tr>

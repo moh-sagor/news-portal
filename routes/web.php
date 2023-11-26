@@ -22,13 +22,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/update/{id}', [NewsController::class, 'update'])->name('news_page.update');
     Route::post('/store', [NewsController::class, 'store'])->name('news_page.store');
     Route::get('/dashboard', [NewsController::class, 'dashboard'])->name('news_page.dashboard');
-    Route::delete('/destroy/{id}', [NewsController::class, 'destroy'])->name('news_page.destroy');
+    Route::post('/destroy/{id}', [NewsController::class, 'destroy'])->name('news_page.destroy');
 
 
 
     // category 
     Route::get('/createCategory', [CategoryController::class, 'create'])->name('news_category.create');
     Route::post('/storeCategory', [CategoryController::class, 'store'])->name('news_category.store');
+    Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('news_category.edit');
+    Route::post('/categories/update/{category}', [CategoryController::class, 'update'])->name('news_category.update');
+    Route::post('/category/destroy/{id}', [CategoryController::class, 'destroy'])->name('news_category.destroy');
+
+
+
 
     // tinymce 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

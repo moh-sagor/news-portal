@@ -21,10 +21,14 @@ class NewsController extends Controller
     }
     public function dashboard()
     {
-        $news = News::all();
+        // Load the categories with each news item using eager loading
+        $news = News::with('categories')->get();
         $newsCount = News::count();
-        return view('news_page.dashboard', compact('news', 'newsCount'));
+        $categories = Category::all();
+
+        return view('news_page.dashboard', compact('news', 'newsCount', 'categories'));
     }
+
 
     public function show($slug)
     {
