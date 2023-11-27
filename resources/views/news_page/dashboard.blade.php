@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 @extends('backend.main')
-@include('backend.sweetalert')
 @section('content')
 
     <div class="container-fluid px-4">
@@ -28,18 +27,25 @@
                                     <label class="form-check-label" for="category_{{ $category->id }}">
                                         <form method="POST" id="delete-item-{{ $category->id }}" action="{{ route('news_category.destroy', $category->id) }}" onsubmit="console.log('Form Submitted');">
                                             @csrf
-                                        <b>{{ $serialCounter }}. {{ $category->name }}</b>
-                                            
-                                        @if(auth()->user()->isAdmin())
-                                        <a style="text-decoration: none;" class="edit-category" data-id="{{ $category->id }}">
-                                            <i class="fas fa-edit" style="color: green;"></i>
+
+                                            <b>{{ $serialCounter }}.</b>
+                                           <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}" style="text-decoration: none;">
+                                            {{ $category->name }}
                                         </a>
-                                        <a style="text-decoration: none;" onclick="confirmDeleteCategory(event, '{{ $category->id }}')">
-                                            <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
-                                        </a>
-                                    @endif
+                                            @if(auth()->user()->isAdmin())
+                                                <a style="text-decoration: none;" class="edit-category" data-id="{{ $category->id }}">
+                                                    <i class="fas fa-edit" style="color: green;"></i>
+                                                </a>
+                                                <a style="text-decoration: none;" onclick="confirmDeleteCategory(event, '{{ $category->id }}')">
+                                                    <i class="fas fa-trash" style="color: red; margin-left:10px;"></i>
+                                                </a>
+                                            @endif
                                         </form>
                                     </label>
+                                    @php
+                                        $postCount = $category->news->count();
+                                    @endphp
+                                    <span class="badge bg-secondary">{{ $postCount }}</span>
                                     @php
                                         $serialCounter++;
                                     @endphp
@@ -49,6 +55,7 @@
                     @endforeach
                 </fieldset>
             </div>
+            
            
             
         </div>
@@ -166,5 +173,8 @@
      updateCounter();
 });
 </script>
+
+
+@include('backend.sweetalert')
 
 @endsection

@@ -38,16 +38,33 @@ class NewsController extends Controller
 
     public function show($slug)
     {
-        // Find the news post by its id
+
+        $recentPosts = News::orderBy('created_at', 'desc')->take(10)->get();
+        $categories = Category::all();
+        // Find the current news post by its slug
         $news = News::with('categories')->where('slug', $slug)->first();
+
         // Check if the news post exists
         if (!$news) {
             // Handle the case where the news post is not found, for example, redirect to a 404 page
             return abort(404);
         }
 
-        return view('news_page.show', compact('news'));
+        // Get all posts for determining prev and next posts
+        $allPosts = News::all();
+
+        // Find the index of the current post
+        $currentIndex = $allPosts->search(function ($post) use ($news) {
+            return $post->id === $news->id;
+        });
+
+        // Determine prev and next posts
+        $prevPost = $currentIndex > 0 ? $allPosts[$currentIndex - 1] : null;
+        $nextPost = $currentIndex < $allPosts->count() - 1 ? $allPosts[$currentIndex + 1] : null;
+
+        return view('news_page.show', compact('news', 'prevPost', 'nextPost', 'categories', 'recentPosts'));
     }
+
 
 
     public function create()
@@ -178,6 +195,15 @@ class NewsController extends Controller
         return redirect()->route('news_page.dashboard')->with('success', 'News deleted successfully');
     }
 
+
+
+    public function showByCategory($categoryId)
+    {
+        $category = Category::findOrFail($categoryId);
+        $posts = $category->news;
+
+        return view('news_page.posts_by_category', compact('category', 'posts'));
+    }
 
 
 

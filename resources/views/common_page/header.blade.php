@@ -72,7 +72,12 @@
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="latest_news.html">Latest News</a></li>
                                         <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="{{route('login')}}">Login</a></li>
+                                        @if(auth()->check())
+                                            <li><a href="{{ route('news_page.dashboard') }}">Dashboard</a></li>
+                                        @else
+                                            <li><a href="{{ route('login') }}">Login</a></li>
+                                        @endif
+
                                         {{-- <li><a href="#">Pages</a>
                                             <ul class="submenu">
                                                 <li><a href="elements.html">Element</a></li>

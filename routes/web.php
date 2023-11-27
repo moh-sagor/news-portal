@@ -13,6 +13,7 @@ Route::get('/', function () {
 // News section 
 Route::get('/news', [NewsController::class, 'index'])->name('news_page.index');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news_page.show');
+Route::get('/category/posts/{categoryId}', [NewsController::class, 'showByCategory'])->name('news_page.posts_by_category');
 // category section 
 Route::get('/category', [CategoryController::class, 'index'])->name('news_category.index');
 
