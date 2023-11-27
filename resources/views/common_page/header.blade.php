@@ -72,14 +72,15 @@
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="latest_news.html">Latest News</a></li>
                                         <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="#">Pages</a>
+                                        <li><a href="{{route('login')}}">Login</a></li>
+                                        {{-- <li><a href="#">Pages</a>
                                             <ul class="submenu">
                                                 <li><a href="elements.html">Element</a></li>
                                                 <li><a href="blog.html">Blog</a></li>
                                                 <li><a href="single-blog.html">Blog Details</a></li>
                                                 <li><a href="details.html">Categori Details</a></li>
                                             </ul>
-                                        </li>
+                                        </li> --}}
                                     </ul>
                                 </nav>
                             </div>
@@ -94,7 +95,6 @@
                                     </form>
                                 </div>
                             </div>
-
                         </div>
                         <!-- Mobile Menu -->
                         <div class="col-12">
