@@ -61,6 +61,7 @@
                         </fieldset>
                         <fieldset class="form-group border p-3">
                             <legend class="float-none w-auto"><b>Full Described Content</b></legend>
+                            <p><b>N.B:</b> If you want to use image and video in this section must use <b style="color:red;">"width:100% and height:auto"</b>  </p>
                             <textarea name="content" id="content" class="form-control my-editor" placeholder="Enter Full Described Content"
                                 oninput="updateMetaDescription(this.value)"></textarea>
                         </fieldset>
@@ -70,7 +71,7 @@
                             <legend class="float-none w-auto"><b>Photo</b></legend>
                             <div class="row">
                                 <div class="col-md-10 form-group mt-3">
-                                    <label class="form-label form-fonts" for="photo">Photo</label>
+                                    <label class="form-label form-fonts" for="photo"><p><b>N.B:</b>Try to use Photo size (750 x 375) for better output. otherwise automatically convet to this ratio.</p></label>
                                     <input type="file" class="form-control" id="photo" name="photo"
                                         onchange="previewImage(event)" />
                                 </div>

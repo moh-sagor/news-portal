@@ -64,7 +64,7 @@
                                         </div>
                                     @endif
                                 </div>
-                    
+                        
                                 <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
                                     @if ($nextPost)
                                         <div class="detials">
@@ -87,6 +87,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                    
                     <div class="comments-area">
