@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 
 
 Route::get('/', function () {
@@ -37,8 +38,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/manage-users', [UserController::class, 'index'])->name('manage.users');
     Route::post('/manage-users/update-role/{user}', [UserController::class, 'updateRole'])->name('manage.users.updateRole');
 
-
-
+    // comments 
+    Route::post('/comments/{newsId}', [CommentController::class, 'store'])->name('comments.store');
 
     // tinymce 
     Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

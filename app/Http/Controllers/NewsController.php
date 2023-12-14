@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use Session;
 use App\Models\Category;
 use App\Models\CategoryNews;
+use App\Models\Comment;
 
 
 class NewsController extends Controller
@@ -43,7 +44,7 @@ class NewsController extends Controller
         $categories = Category::all();
         // Find the current news post by its slug
         $news = News::with('categories')->where('slug', $slug)->first();
-
+        $comments = Comment::with('user')->where('news_id', $news->id)->latest()->get();
         // Check if the news post exists
         if (!$news) {
             // Handle the case where the news post is not found, for example, redirect to a 404 page
@@ -62,7 +63,7 @@ class NewsController extends Controller
         $prevPost = $currentIndex > 0 ? $allPosts[$currentIndex - 1] : null;
         $nextPost = $currentIndex < $allPosts->count() - 1 ? $allPosts[$currentIndex + 1] : null;
 
-        return view('news_page.show', compact('news', 'prevPost', 'nextPost', 'categories', 'recentPosts'));
+        return view('news_page.show', compact('news', 'prevPost', 'nextPost', 'categories', 'recentPosts', 'comments'));
     }
 
 
@@ -204,8 +205,6 @@ class NewsController extends Controller
 
         return view('news_page.posts_by_category', compact('category', 'posts'));
     }
-
-
 
 }
 

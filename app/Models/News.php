@@ -20,10 +20,20 @@ class News extends Model
         'user_id',
     ];
 
-
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_news');
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+    public function commentCount()
+    {
+        return $this->comments()->count();
+    }
+
+
 
 }
