@@ -55,9 +55,6 @@
                     @endforeach
                 </fieldset>
             </div>
-            
-           
-            
         </div>
 
         <div class="container-fluid px-4">
@@ -83,9 +80,11 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
+                        
                         <tfoot>
                             <tr>
                                 <th>S\N</th>
+                                <th>Title</th>
                                 <th>Slug</th>
                                 <th>Meta Title</th>
                                 <th>Meta Description</th>
@@ -141,7 +140,7 @@
                                         @else
                                         <p>Only for SuperUser.</p>
                                         @endif
-                                                </form>
+                                        </form>
                                         
                                     </td>
                                 </tr>

@@ -71,7 +71,7 @@
                             <legend class="float-none w-auto"><b>Photo</b></legend>
                             <div class="row">
                                 <div class="col-md-10 form-group mt-3">
-                                    <label class="form-label form-fonts" for="photo"><p><b>N.B:</b>Try to use Photo size (750 x 375) for better output. otherwise automatically convet to this ratio.</p></label>
+                                    <label class="form-label form-fonts" for="photo"><p><b>N.B:</b>Try to use Photo size (750 x 375) for better output. otherwise automatically convet to this ratio and photo not properly visualized.</p></label>
                                     <input type="file" class="form-control" id="photo" name="photo"
                                         onchange="previewImage(event)" />
                                 </div>
