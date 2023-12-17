@@ -9,7 +9,6 @@ use App\Models\News;
 use Intervention\Image\Facades\Image;
 use Session;
 use App\Models\Category;
-use App\Models\CategoryNews;
 use App\Models\Comment;
 
 
@@ -23,7 +22,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::with('category')->get();
+        $news = News::with('categories')->get();
         return view('news_page.index', compact('news'));
     }
     public function dashboard()
