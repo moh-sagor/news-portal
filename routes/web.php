@@ -6,12 +6,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
 
 
-Route::get('/', function () {
-    return view('homePage');
-})->name('homePage');
-
-
 // News section 
+Route::get('/', [NewsController::class, 'homePage'])->name('news_page.homePage');
 Route::get('/news', [NewsController::class, 'index'])->name('news_page.index');
 Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news_page.show');
 Route::get('/category/posts/{categoryId}', [NewsController::class, 'showByCategory'])->name('news_page.posts_by_category');

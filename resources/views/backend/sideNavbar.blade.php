@@ -2,7 +2,7 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <a class="nav-link" href="{{ route('homePage') }}">
+                <a class="nav-link" href="{{ route('news_page.homePage') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
                     Home
                 </a>

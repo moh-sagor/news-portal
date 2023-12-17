@@ -20,6 +20,12 @@ class NewsController extends Controller
         $this->middleware('role:admin')->only('create', 'store', 'edit', 'update', 'destroy');
     }
 
+    public function homePage()
+    {
+        $latestPost = News::with('categories')->latest()->first();
+        $news = News::with('categories')->latest()->get();
+        return view('news_page.homePage', compact('news', 'latestPost'));
+    }
     public function index()
     {
         $news = News::with('categories')->get();
@@ -31,7 +37,6 @@ class NewsController extends Controller
         $news = News::with('categories')->get();
         $newsCount = News::count();
         $categories = Category::all();
-
         return view('news_page.dashboard', compact('news', 'newsCount', 'categories'));
     }
 
