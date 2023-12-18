@@ -57,6 +57,11 @@
                                 <li><a href="#"><i class="fab fa-youtube"></i></a></li>
                                 <li><a href="#"><i class="fab fa-instagram"></i></a></li>
                             </ul>
+                            <ul>
+                                <li>
+                                    <p><i class="fas fa-eye"></i> {{ $news->views_count }}</p>
+                                </li>
+                            </ul>
                         </div>
                         <div class="navigation-area">
                             <div class="row">
@@ -122,7 +127,7 @@
                                                 <h5>
                                                     <a href="#">{{ $comment->user->name }}</a>
                                                 </h5>
-                                                <p class="date">{{ $news->created_at->format('F j, Y \a\t g:i a') }}</p>
+                                                <p class="date">{{ $comment->created_at->format('F j, Y') }}</p>
                                             </div>
                                         </div>
                                     </div>

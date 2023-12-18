@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use Session;
 use App\Models\Category;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Config;
 
 
 class NewsController extends Controller
@@ -22,9 +23,10 @@ class NewsController extends Controller
 
     public function homePage()
     {
+        $weeklyTopNews = News::with('categories')->orderBy('views_count', 'desc')->take(4)->get();
         $latestPost = News::with('categories')->latest()->first();
         $news = News::with('categories')->latest()->get();
-        return view('news_page.homePage', compact('news', 'latestPost'));
+        return view('news_page.homePage', compact('news', 'latestPost', 'weeklyTopNews'));
     }
     public function index()
     {
@@ -34,41 +36,42 @@ class NewsController extends Controller
     public function dashboard()
     {
         // Load the categories with each news item using eager loading
-        $news = News::with('categories')->get();
+        $news = News::with('categories')->latest()->get();
         $newsCount = News::count();
-        $categories = Category::all();
+        $categories = Category::latest()->get();
+
         return view('news_page.dashboard', compact('news', 'newsCount', 'categories'));
     }
 
 
     public function show($slug)
     {
-
-        $recentPosts = News::orderBy('created_at', 'desc')->take(10)->get();
-        $categories = Category::all();
         // Find the current news post by its slug
-        $news = News::with('categories')->where('slug', $slug)->first();
-        $comments = Comment::with('user')->where('news_id', $news->id)->latest()->get();
+        $news = News::where('slug', $slug)->first();
+
         // Check if the news post exists
         if (!$news) {
             // Handle the case where the news post is not found, for example, redirect to a 404 page
             return abort(404);
         }
 
-        // Get all posts for determining prev and next posts
-        $allPosts = News::all();
+        // Increment the view count
+        $news->increment('views_count');
 
-        // Find the index of the current post
+        // Rest of your existing code
+        $recentPosts = News::orderBy('created_at', 'desc')->take(10)->get();
+        $categories = Category::all();
+        $comments = Comment::with('user')->where('news_id', $news->id)->latest()->get();
+        $allPosts = News::all();
         $currentIndex = $allPosts->search(function ($post) use ($news) {
             return $post->id === $news->id;
         });
-
-        // Determine prev and next posts
         $prevPost = $currentIndex > 0 ? $allPosts[$currentIndex - 1] : null;
         $nextPost = $currentIndex < $allPosts->count() - 1 ? $allPosts[$currentIndex + 1] : null;
 
         return view('news_page.show', compact('news', 'prevPost', 'nextPost', 'categories', 'recentPosts', 'comments'));
     }
+
 
 
 

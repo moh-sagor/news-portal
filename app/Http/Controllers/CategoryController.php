@@ -15,7 +15,7 @@ class CategoryController extends Controller
     }
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::latest()->get();
         $newsCount = News::count();
         return view('news_category.index', compact('categories', 'newsCount'));
     }

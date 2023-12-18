@@ -108,46 +108,28 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="weekly-news-active dot-style d-flex dot-style">
+                            @foreach ($weeklyTopNews as $news)
                             <div class="weekly-single">
                                 <div class="weekly-img">
-                                    <img src="{{ asset('assets/img/news/weeklyNews2.jpg') }}" alt="">
+                                    <img src="{{ asset('Posted_News/News/' . $news->photo) }}" alt="{{ $news->title }}" height="300" width="100">
                                 </div>
                                 <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
+                                    @foreach ($news->categories as $category)
+                                        <span class="color1">
+                                            <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}" style="color:black;">
+                                                {{ $category->name }}
+                                            </a>
+                                        </span>
+                                    @endforeach
+                                    <h4><a href="{{ route('news_page.show', $news->slug) }}">{{ $news->title }}</a></h4>
                                 </div>
                             </div>
-                            <div class="weekly-single active">
-                                <div class="weekly-img">
-                                    <img src="{{ asset('assets/img/news/weeklyNews1.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="{{ asset('assets/img/news/weeklyNews3.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="{{ asset('assets/img/news/weeklyNews1.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly-caption">
-                                    <span class="color1">Strike</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
     <!-- End Weekly-News -->

@@ -70,13 +70,13 @@
                             <tr>
                                 <th>S\N</th>
                                 <th>Title</th>
-                                <th>Slug</th>
                                 <th>Meta Title</th>
                                 <th>Meta Description</th>
                                 <th>Short Content</th>
                                 <th>Content</th>
                                 <th>Category</th>
                                 <th>Photo</th>
+                                <th>view</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -85,13 +85,13 @@
                             <tr>
                                 <th>S\N</th>
                                 <th>Title</th>
-                                <th>Slug</th>
                                 <th>Meta Title</th>
                                 <th>Meta Description</th>
                                 <th>Short Content</th>
                                 <th>Content</th>
                                 <th>Category</th>
                                 <th>Photo</th>
+                                <th>view</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -109,7 +109,6 @@
                                             {{Str::limit($item->title,20) }}
                                         </a>
                                     </td>
-                                    <td>{{ Str::limit($item->slug, 10) }}</td>
                                     <td>{{ Str::limit($item->meta_title, 15) }}</td>
                                     <td>{{ Str::limit($item->meta_description, 20) }}</td>
                                     <td>{{ Str::limit($item->short_content, 20) }}</td>
@@ -126,6 +125,7 @@
                                             No Photo Found
                                         @endif
                                     </td>
+                                    <td>{{ $item->views_count }}</td>
                                     <td>   
                                         <form method="POST" id="delete-form-{{ $item->id }}" action="{{ route('news_page.destroy', ['id' => $item->id]) }}">
                                         @csrf
