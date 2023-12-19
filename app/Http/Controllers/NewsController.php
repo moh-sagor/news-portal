@@ -23,10 +23,12 @@ class NewsController extends Controller
 
     public function homePage()
     {
-        $weeklyTopNews = News::with('categories')->orderBy('views_count', 'desc')->take(4)->get();
+        $weeklyTopNews = News::with('categories')->orderBy('views_count', 'desc')->take(6)->get();
         $latestPost = News::with('categories')->latest()->first();
         $news = News::with('categories')->latest()->get();
-        return view('news_page.homePage', compact('news', 'latestPost', 'weeklyTopNews'));
+        $allpost = News::with('categories')->latest()->skip(9)->take(4)->get();
+        $categories = Category::all();
+        return view('news_page.homePage', compact('news', 'latestPost', 'weeklyTopNews', 'allpost', 'categories'));
     }
     public function index()
     {
