@@ -8,6 +8,6 @@
 <script src="{{ asset('backend/assets/js/datatables-simple-demo.js') }}"></script>
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 <script src="{{asset('js/sweetalert2.js')}}"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 

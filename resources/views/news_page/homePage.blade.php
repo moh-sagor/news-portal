@@ -152,13 +152,16 @@
                                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
                                             href="#nav-home" role="tab" aria-controls="nav-home"
                                             aria-selected="true">All</a>
-
+{{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
                                             {{-- all categories one by one  --}}
-                                        @foreach($categories as $category)
-                                            <a style="color:rgb(56, 55, 55);" class="nav-link" id="nav-{{ $category->id }}-tab" data-toggle="tab"
-                                                href="#nav-{{ $category->id }}" role="tab" aria-controls="nav-{{ $category->id }}"
-                                                aria-selected="false">{{ $category->name }}</a>
-                                        @endforeach
+                                            @foreach($categories as $category)
+                                            @php
+                                                $categoryId = str_replace(' ', '-', $category->id);
+                                            @endphp
+                                                <a class="nav-item nav-link" id="nav-{{ $categoryId }}-tab" data-toggle="tab"
+                                                    href="#nav-{{ $categoryId }}" role="tab" aria-controls="nav-{{ $categoryId }}"
+                                                    aria-selected="false">{{ $category->name }}</a>
+                                            @endforeach
                                        
                                     </div>
                                 </nav>
@@ -201,30 +204,32 @@
                                     </div>
                                 </div>
 
-
+{{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
                                 <!-- Card -->
-                                <div class="tab-pane fade" id="nav-profile" role="tabpanel"
-                                    aria-labelledby="nav-profile-tab">
-                                    <div class="whats-news-caption">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-md-6">
-                                                <div class="single-what-news mb-100">
-                                                    <div class="what-img">
-                                                        <img src="{{ asset('assets/img/news/whatNews1.jpg') }}"
-                                                            alt="">
-                                                    </div>
-                                                    <div class="what-cap">
-                                                        <span class="color1">Night party</span>
-                                                        <h4><a href="#">Welcome To The Best Model Winner
-                                                                Contest</a></h4>
+                                @foreach($categories as $category)
+                                @php
+                                    $categoryId = str_replace(' ', '-', $category->id);
+                                @endphp
+                                    <div class="tab-pane fade" id="nav-{{ $categoryId }}" role="tabpanel"
+                                        aria-labelledby="nav-{{ $categoryId }}-tab">
+                                            <div class="row">
+                                                <h2>{{$category->name}}</h2>
+                                                @foreach($category->news as $post)
+                                                <div class="col-lg-6 col-md-6">
+                                                    <div class="single-what-news mb-100">
+                                                        <div class="what-img">
+                                                            <img src="{{ asset('Posted_News/News/'.$post->photo) }}" alt="{{ $post->title }}" height="300" width="100">
+                                                        </div>
+                                                        <div class="what-cap">
+                                                            <h4><a href="{{ route('news_page.show', $post->slug) }}">{{ $post->title }}</a></h4>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                                 @endforeach
+                                             </div>
                                     </div>
-                                </div>
-                              
-                                
+                                @endforeach
+
                             </div>
                             <!-- End Nav Card -->
                         </div>
@@ -543,4 +548,33 @@
         </div>
     </div>
     <!-- End pagination  -->
+
+
+    {{-- <script>
+        $(document).ready(function () {
+            // Triggered when a category tab is clicked
+            $('.nav-item.nav-link').on('click', function () {
+                var categoryId = $(this).attr('id').replace('nav-', ''); // Extract category ID from tab ID
+                loadCategoryContent(categoryId);
+            });
+    
+            // Load content for the selected category
+            function loadCategoryContent(categoryId) {
+                // AJAX request to fetch content for the category
+                $.ajax({
+                    url: '/category/posts/' +categoryId,
+                    type: 'GET',
+                    success: function (data) {
+                        // Update the content of the corresponding tab pane
+                        $('#nav-' + categoryId).html(data);
+                    },
+                    error: function (error) {
+                        console.error('Error fetching category content:', error);
+                    }
+                });
+            }
+        });
+    </script> --}}
+    
+    
 @endsection

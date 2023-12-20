@@ -27,12 +27,14 @@ class NewsController extends Controller
         $latestPost = News::with('categories')->latest()->first();
         $news = News::with('categories')->latest()->get();
         $allpost = News::with('categories')->latest()->skip(9)->take(4)->get();
-        $categories = Category::all();
-        return view('news_page.homePage', compact('news', 'latestPost', 'weeklyTopNews', 'allpost', 'categories'));
+        $atAglance = News::with('categories')->latest()->take(4)->get();
+        $categories = Category::with('news')->get();
+
+        return view('news_page.homePage', compact('news', 'latestPost', 'weeklyTopNews', 'allpost', 'categories', 'atAglance'));
     }
     public function index()
     {
-        $news = News::with('categories')->get();
+        $news = News::with('categories')->latest()->get();
         return view('news_page.index', compact('news'));
     }
     public function dashboard()
