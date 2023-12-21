@@ -165,7 +165,6 @@
                                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
                                             href="#nav-home" role="tab" aria-controls="nav-home"
                                             aria-selected="true">All</a>
-                                        {{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
                                         {{-- all categories one by one  --}}
                                         @foreach ($categories as $category)
                                             @php
@@ -222,33 +221,6 @@
                                     </div>
                                 </div>
 
-                                {{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
-                                <!-- Card -->
-                                {{-- @foreach ($categories as $category)
-                                    @php
-                                        $categoryId = str_replace(' ', '-', $category->id);
-                                    @endphp
-                                    <div class="tab-pane fade" id="nav-{{ $categoryId }}" role="tabpanel"
-                                        aria-labelledby="nav-{{ $categoryId }}-tab">
-                                        <div class="row">
-                                            @foreach ($category->news as $post)
-                                                <div class="col-lg-6 col-md-6">
-                                                    <div class="single-what-news mb-100">
-                                                        <div class="what-img">
-                                                            <img src="{{ asset('Posted_News/News/' . $post->photo) }}"
-                                                                alt="{{ $post->title }}">
-                                                        </div>
-                                                        <div class="what-cap">
-                                                            <h4><a
-                                                                    href="{{ route('news_page.show', $post->slug) }}">{{ $post->title }}</a>
-                                                            </h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
-                                @endforeach --}}
                                 @foreach ($categories as $category)
                                     @php
                                         $categoryId = str_replace(' ', '-', $category->id);

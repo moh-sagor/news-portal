@@ -17,7 +17,10 @@ class CategoryController extends Controller
     {
         $categories = Category::latest()->get();
         $newsCount = News::count();
-        return view('news_category.index', compact('categories', 'newsCount'));
+        // Paginate the query here
+        $allpost = News::with('categories')->latest()->paginate(10);
+        $recentCategories = Category::with('news')->get();
+        return view('news_category.index', compact('categories', 'newsCount', 'allpost', 'recentCategories'));
     }
 
     public function create()
