@@ -14,13 +14,13 @@
                             <div class="trending-animated">
                                 <ul id="js-news" class="js-hidden">
                                     @foreach ($news->take(20) as $item)
-                                    <li>
-                                        <a href="{{ route('news_page.show', $item->slug) }}">
-                                            {{ $item->title }}
-                                        </a>
-                                    </li>
+                                        <li>
+                                            <a href="{{ route('news_page.show', $item->slug) }}">
+                                                {{ $item->title }}
+                                            </a>
+                                        </li>
                                     @endforeach
-                                </ul>                                
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -30,37 +30,45 @@
                         <!-- Trending Top -->
                         <div class="trending-top mb-30">
                             <div class="trend-top-img">
-                                <img src="{{ asset('Posted_News/News/' . $latestPost->photo) }}" alt="{{ $latestPost->title }}">
+                                <img src="{{ asset('Posted_News/News/' . $latestPost->photo) }}"
+                                    alt="{{ $latestPost->title }}">
                                 <div class="trend-top-cap">
                                     @foreach ($latestPost->categories as $category)
-                                    <span><a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}" style="color:black;">{{ $category->name }}</a></span>
+                                        <span><a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}"
+                                                style="color:black;">{{ $category->name }}</a></span>
                                     @endforeach
-                                    <h2><a href="{{ route('news_page.show', $latestPost->slug) }}">{{ $latestPost->title }}</a></h2>
+                                    <h2><a
+                                            href="{{ route('news_page.show', $latestPost->slug) }}">{{ $latestPost->title }}</a>
+                                    </h2>
                                 </div>
                             </div>
                         </div>
                         <!-- Trending Bottom -->
                         <div class="trending-bottom">
                             <div class="row">
-                                    @foreach ($news->slice(1, 3) as $item)
+                                @foreach ($news->slice(1, 3) as $item)
                                     <div class="col-lg-4">
-                                    <div class="single-bottom mb-35">
+                                        <div class="single-bottom mb-35">
                                             <div class="trend-bottom-img mb-30">
                                                 <a href="{{ route('news_page.show', $item->slug) }}">
-                                                <img src="{{ asset('Posted_News/News/'.$item->photo) }}" alt="{{ $item->title }}">
+                                                    <img src="{{ asset('Posted_News/News/' . $item->photo) }}"
+                                                        alt="{{ $item->title }}">
                                                 </a>
                                             </div>
                                             <div class="trend-bottom-cap">
                                                 <span class="color1">
-                                                    <a href="{{ route('news_page.posts_by_category', ['categoryId' => $item->categories->first()->id]) }}" style="color:black;">
+                                                    <a href="{{ route('news_page.posts_by_category', ['categoryId' => $item->categories->first()->id]) }}"
+                                                        style="color:black;">
                                                         {{ $item->categories->first()->name }}
                                                     </a>
                                                 </span>
-                                                <h4><a href="{{ route('news_page.show', $item->slug) }}">{{ $item->title }}</a></h4>
+                                                <h4><a
+                                                        href="{{ route('news_page.show', $item->slug) }}">{{ $item->title }}</a>
+                                                </h4>
                                             </div>
                                         </div>
                                     </div>
-                                        @endforeach
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -72,12 +80,14 @@
                             <div class="trand-right-single d-flex">
                                 <div class="trand-right-img">
                                     <a href="{{ route('news_page.show', $item->slug) }}">
-                                    <img src="{{ asset('Posted_News/News/' . $item->photo) }}" alt="{{ $item->title }}" height="120" width="100">
+                                        <img src="{{ asset('Posted_News/News/' . $item->photo) }}"
+                                            alt="{{ $item->title }}" height="120" width="100">
                                     </a>
                                 </div>
                                 <div class="trand-right-cap">
                                     <span class="color1">
-                                        <a href="{{ route('news_page.posts_by_category', ['categoryId' => $item->categories->first()->id]) }}" style="color:black;">
+                                        <a href="{{ route('news_page.posts_by_category', ['categoryId' => $item->categories->first()->id]) }}"
+                                            style="color:black;">
                                             {{ $item->categories->first()->name }}
                                         </a>
                                     </span>
@@ -86,8 +96,8 @@
                             </div>
                         @endforeach
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -109,27 +119,30 @@
                     <div class="col-12">
                         <div class="weekly-news-active dot-style d-flex dot-style">
                             @foreach ($weeklyTopNews as $news)
-                            <div class="weekly-single">
-                                <div class="weekly-img">
-                                    <img src="{{ asset('Posted_News/News/' . $news->photo) }}" alt="{{ $news->title }}" height="300" width="100">
+                                <div class="weekly-single">
+                                    <div class="weekly-img">
+                                        <img src="{{ asset('Posted_News/News/' . $news->photo) }}"
+                                            alt="{{ $news->title }}" height="300" width="100">
+                                    </div>
+                                    <div class="weekly-caption">
+                                        @foreach ($news->categories as $category)
+                                            <span class="color1">
+                                                <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}"
+                                                    style="color:black;">
+                                                    {{ $category->name }}
+                                                </a>
+                                            </span>
+                                        @endforeach
+                                        <h4><a href="{{ route('news_page.show', $news->slug) }}">{{ $news->title }}</a>
+                                        </h4>
+                                    </div>
                                 </div>
-                                <div class="weekly-caption">
-                                    @foreach ($news->categories as $category)
-                                        <span class="color1">
-                                            <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}" style="color:black;">
-                                                {{ $category->name }}
-                                            </a>
-                                        </span>
-                                    @endforeach
-                                    <h4><a href="{{ route('news_page.show', $news->slug) }}">{{ $news->title }}</a></h4>
-                                </div>
-                            </div>
                             @endforeach
-                        </div>      
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <!-- End Weekly-News -->
@@ -152,17 +165,17 @@
                                         <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
                                             href="#nav-home" role="tab" aria-controls="nav-home"
                                             aria-selected="true">All</a>
-{{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
-                                            {{-- all categories one by one  --}}
-                                            @foreach($categories as $category)
+                                        {{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
+                                        {{-- all categories one by one  --}}
+                                        @foreach ($categories as $category)
                                             @php
                                                 $categoryId = str_replace(' ', '-', $category->id);
                                             @endphp
-                                                <a class="nav-item nav-link" id="nav-{{ $categoryId }}-tab" data-toggle="tab"
-                                                    href="#nav-{{ $categoryId }}" role="tab" aria-controls="nav-{{ $categoryId }}"
-                                                    aria-selected="false">{{ $category->name }}</a>
-                                            @endforeach
-                                       
+                                            <a class="nav-item nav-link" id="nav-{{ $categoryId }}-tab" data-toggle="tab"
+                                                href="#nav-{{ $categoryId }}" role="tab"
+                                                aria-controls="nav-{{ $categoryId }}"
+                                                aria-selected="false">{{ $category->name }}</a>
+                                        @endforeach
                                     </div>
                                 </nav>
                                 <!--End Nav Button  -->
@@ -180,53 +193,99 @@
                                     aria-labelledby="nav-home-tab">
                                     <div class="whats-news-caption">
                                         <div class="row">
-                                                @foreach ($allpost as $item)
+                                            @foreach ($allpost as $item)
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="single-what-news mb-100">
                                                         <div class="what-img">
-                                                                <img src="{{ asset('Posted_News/News/'.$item->photo) }}" alt="{{ $item->title }}" height="300" width="100">
+                                                            <img src="{{ asset('Posted_News/News/' . $item->photo) }}"
+                                                                alt="{{ $item->title }}" height="300" width="100">
                                                         </div>
                                                         <div class="what-cap">
-                                                                @foreach ($item->categories as $category)
+                                                            @foreach ($item->categories as $category)
                                                                 <span class="color1">
-                                                                    <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}" style="color: black;">
+                                                                    <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}"
+                                                                        style="color: black;">
                                                                         {{ $category->name }}
                                                                     </a>
                                                                 </span>
-                                                                @endforeach
-                                                            <h4><a href="{{ route('news_page.show', $item->slug) }}">{{ $item->title }}</a></h4>
+                                                            @endforeach
+                                                            <h4><a
+                                                                    href="{{ route('news_page.show', $item->slug) }}">{{ $item->title }}</a>
+                                                            </h4>
                                                         </div>
                                                     </div>
-                                            </div> 
-                                            @endforeach  
-                                            <a class="btn btn-sm" href="{{route('news_page.index')}}">View All Posts</a>
+                                                </div>
+                                            @endforeach
+                                            <a class="btn btn-sm" href="{{ route('news_page.index') }}">View All
+                                                Posts</a>
                                         </div>
                                     </div>
                                 </div>
 
-{{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
+                                {{-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++== --}}
                                 <!-- Card -->
-                                @foreach($categories as $category)
-                                @php
-                                    $categoryId = str_replace(' ', '-', $category->id);
-                                @endphp
+                                {{-- @foreach ($categories as $category)
+                                    @php
+                                        $categoryId = str_replace(' ', '-', $category->id);
+                                    @endphp
                                     <div class="tab-pane fade" id="nav-{{ $categoryId }}" role="tabpanel"
                                         aria-labelledby="nav-{{ $categoryId }}-tab">
-                                            <div class="row">
-                                                <h2>{{$category->name}}</h2>
-                                                @foreach($category->news as $post)
+                                        <div class="row">
+                                            @foreach ($category->news as $post)
                                                 <div class="col-lg-6 col-md-6">
                                                     <div class="single-what-news mb-100">
                                                         <div class="what-img">
-                                                            <img src="{{ asset('Posted_News/News/'.$post->photo) }}" alt="{{ $post->title }}" height="300" width="100">
+                                                            <img src="{{ asset('Posted_News/News/' . $post->photo) }}"
+                                                                alt="{{ $post->title }}">
                                                         </div>
                                                         <div class="what-cap">
-                                                            <h4><a href="{{ route('news_page.show', $post->slug) }}">{{ $post->title }}</a></h4>
+                                                            <h4><a
+                                                                    href="{{ route('news_page.show', $post->slug) }}">{{ $post->title }}</a>
+                                                            </h4>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                 @endforeach
-                                             </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach --}}
+                                @foreach ($categories as $category)
+                                    @php
+                                        $categoryId = str_replace(' ', '-', $category->id);
+                                    @endphp
+                                    <div class="tab-pane fade" id="nav-{{ $categoryId }}" role="tabpanel"
+                                        aria-labelledby="nav-{{ $categoryId }}-tab">
+                                        <div class="whats-news-caption">
+                                            <div class="row">
+                                                @foreach ($category->news->take(4) as $post)
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <div class="single-what-news mb-100">
+                                                            <div class="what-img">
+                                                                <img src="{{ asset('Posted_News/News/' . $post->photo) }}"
+                                                                    alt="{{ $post->title }}" height="300"
+                                                                    width="100">
+                                                            </div>
+                                                            <div class="what-cap">
+                                                                <span class="color1">
+                                                                    <a href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}"
+                                                                        style="color: black;">
+                                                                        {{ $category->name }}
+                                                                    </a>
+                                                                </span>
+                                                                <h4><a
+                                                                        href="{{ route('news_page.show', $post->slug) }}">{{ $post->title }}</a>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+
+                                            </div>
+                                        </div>
+                                        <a class="btn btn-sm"
+                                            href="{{ route('news_page.posts_by_category', ['categoryId' => $category->id]) }}">View
+                                            All
+                                            {{ $category->name }}</a>
                                     </div>
                                 @endforeach
 
@@ -294,287 +353,4 @@
         </div>
     </section>
     <!-- Whats New End -->
-    <!--   Weekly2-News start -->
-    <div class="weekly2-news-area  weekly2-pading gray-bg">
-        <div class="container">
-            <div class="weekly2-wrapper">
-                <!-- section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Weekly Top News</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="weekly2-news-active dot-style d-flex dot-style">
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{ asset('assets/img/news/weekly2News1.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{ asset('assets/img/news/weekly2News2.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Event night</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{ asset('assets/img/news/weekly2News3.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{ asset('assets/img/news/weekly2News4.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Event time</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="weekly2-single">
-                                <div class="weekly2-img">
-                                    <img src="{{ asset('assets/img/news/weekly2News4.jpg') }}" alt="">
-                                </div>
-                                <div class="weekly2-caption">
-                                    <span class="color1">Corporate</span>
-                                    <p>25 Jan 2020</p>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Weekly-News -->
-    <!-- Start Youtube -->
-    <div class="youtube-area video-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="video-items-active">
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/CicQIuG8hBo" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/rIz00N40bag" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/CONfhrASy44" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/lq6fL2ROWf8" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-
-                        </div>
-                        <div class="video-items text-center">
-                            <iframe src="https://www.youtube.com/embed/0VxlQlacWV4" frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="video-info">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="video-caption">
-                            <div class="top-caption">
-                                <span class="color1">Politics</span>
-                            </div>
-                            <div class="bottom-caption">
-                                <h2>Welcome To The Best Model Winner Contest At Look of the year</h2>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmod ipsum
-                                    dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit sed do
-                                    eiusmod ipsum dolor sit. Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                    sed do eiusmod ipsum dolor sit lorem ipsum dolor sit.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testmonial-nav text-center">
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/CicQIuG8hBo" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/rIz00N40bag" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/CONfhrASy44" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/lq6fL2ROWf8" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                            <div class="single-video">
-                                <iframe src="https://www.youtube.com/embed/0VxlQlacWV4" frameborder="0"
-                                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen></iframe>
-                                <div class="video-intro">
-                                    <h4>Welcotme To The Best Model Winner Contest</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Start youtube -->
-    <!--  Recent Articles start -->
-    <div class="recent-articles">
-        <div class="container">
-            <div class="recent-wrapper">
-                <!-- section Tittle -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-tittle mb-30">
-                            <h3>Recent Articles</h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="recent-active dot-style d-flex dot-style">
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{ asset('assets/img/news/recent1.jpg') }}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{ asset('assets/img/news/recent2.jpg') }}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{ asset('assets/img/news/recent3.jpg') }}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                            <div class="single-recent mb-100">
-                                <div class="what-img">
-                                    <img src="{{ asset('assets/img/news/recent2.jpg') }}" alt="">
-                                </div>
-                                <div class="what-cap">
-                                    <span class="color1">Night party</span>
-                                    <h4><a href="#">Welcome To The Best Model Winner Contest</a></h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Recent Articles End -->
-    <!--Start pagination -->
-    <div class="pagination-area pb-45 text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="single-wrap d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination justify-content-start">
-                                <li class="page-item"><a class="page-link" href="#"><span
-                                            class="flaticon-arrow roted"></span></a></li>
-                                <li class="page-item active"><a class="page-link" href="#">01</a></li>
-                                <li class="page-item"><a class="page-link" href="#">02</a></li>
-                                <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                <li class="page-item"><a class="page-link" href="#"><span
-                                            class="flaticon-arrow right-arrow"></span></a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End pagination  -->
-
-
-    {{-- <script>
-        $(document).ready(function () {
-            // Triggered when a category tab is clicked
-            $('.nav-item.nav-link').on('click', function () {
-                var categoryId = $(this).attr('id').replace('nav-', ''); // Extract category ID from tab ID
-                loadCategoryContent(categoryId);
-            });
-    
-            // Load content for the selected category
-            function loadCategoryContent(categoryId) {
-                // AJAX request to fetch content for the category
-                $.ajax({
-                    url: '/category/posts/' +categoryId,
-                    type: 'GET',
-                    success: function (data) {
-                        // Update the content of the corresponding tab pane
-                        $('#nav-' + categoryId).html(data);
-                    },
-                    error: function (error) {
-                        console.error('Error fetching category content:', error);
-                    }
-                });
-            }
-        });
-    </script> --}}
-    
-    
 @endsection

@@ -17,11 +17,6 @@
                                     <li id="currentDateContainer">
                                         <img src="{{ asset('assets/img/icon/header_icon2.png') }}" alt="calender icon">
                                     </li>
-
-                                    <li id="weatherInfoContainer">
-                                        <img id="weatherIcon" src="{{ asset('assets/img/icon/header_icon1.png') }}"
-                                            alt="weather icon">
-                                    </li>
                                 </ul>
                             </div>
                             <div class="header-info-right">
@@ -42,8 +37,8 @@
                         <!-- Logo -->
                         <div class="col-xl-3 col-lg-3 col-md-3">
                             <div class="logo">
-                                <a href="{{ route('news_page.homePage') }}"><img src="{{ asset('assets/img/logo/logo.png') }}"
-                                        alt=""></a>
+                                <a href="{{ route('news_page.homePage') }}"><img
+                                        src="{{ asset('assets/img/logo/logo.png') }}" alt=""></a>
                             </div>
                         </div>
                         <div class="col-xl-9 col-lg-9 col-md-9">
@@ -60,19 +55,19 @@
                         <div class="col-xl-10 col-lg-10 col-md-12 header-flex">
                             <!-- sticky -->
                             <div class="sticky-logo">
-                                <a href="{{ route('news_page.homePage') }}"><img src="{{ asset('assets/img/logo/logo.png') }}"
-                                        alt=""></a>
+                                <a href="{{ route('news_page.homePage') }}"><img
+                                        src="{{ asset('assets/img/logo/logo.png') }}" alt=""></a>
                             </div>
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-md-block">
                                 <nav>
                                     <ul id="navigation">
                                         <li><a href="{{ route('news_page.homePage') }}">Home</a></li>
-                                        <li><a href="{{route('news_category.index')}}">Categories</a></li>
+                                        <li><a href="{{ route('news_category.index') }}">Categories</a></li>
                                         <li><a href="about.html">About</a></li>
                                         <li><a href="latest_news.html">Latest News</a></li>
                                         <li><a href="contact.html">Contact</a></li>
-                                        @if(auth()->check())
+                                        @if (auth()->check())
                                             <li><a href="{{ route('news_page.dashboard') }}">Dashboard</a></li>
                                         @else
                                             <li><a href="{{ route('login') }}">Login</a></li>
